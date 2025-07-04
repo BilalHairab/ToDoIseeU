@@ -19,7 +19,7 @@ axios.interceptors.request.use(
   },
 );
 
-export async function getPosts(): Promise<Post[]> {
+export async function getPostsFromAPI(): Promise<Post[]> {
   const response = await axios.get(`${baseUrl}/posts`);
   const data = response.data;
 
@@ -34,7 +34,7 @@ export async function getPosts(): Promise<Post[]> {
   return validPosts;
 }
 
-export async function getSpecificPost(postId: number): Promise<Post> {
+export async function getSpecificPostFromAPI(postId: number): Promise<Post> {
   const response = await axios.get(`${baseUrl}/posts/${postId}`);
   const data = response.data;
 
@@ -45,7 +45,7 @@ export async function getSpecificPost(postId: number): Promise<Post> {
   throw 'Invalid Post';
 }
 
-export async function getSpecificUser(userId: number): Promise<User> {
+export async function getSpecificUserFromAPI(userId: number): Promise<User> {
   const response = await axios.get(`${baseUrl}/users/${userId}`);
   const data = response.data;
   if (isValidUser(data)) {
