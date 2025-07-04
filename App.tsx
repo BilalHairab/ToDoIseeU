@@ -27,7 +27,7 @@ function App() {
         <Stack.Navigator
           screenOptions={{
             headerShown: true,
-            animation: 'fade',
+            animation: 'slide_from_right',
           }}
         >
           <Stack.Screen name="Posts" component={PostsMainScreen} />
