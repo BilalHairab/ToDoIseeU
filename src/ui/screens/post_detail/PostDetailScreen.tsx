@@ -43,7 +43,7 @@ function PostDetailScreen() {
         </View>
 
         <Text style={styles.sectionTitle}>Author Info</Text>
-        <View style={styles.infoBox}>
+        <View style={commonStyles.infoBox}>
           <Text style={styles.info}>
             <Text style={styles.label}>Name:</Text> {state.data.user.name}
           </Text>
@@ -63,7 +63,7 @@ function PostDetailScreen() {
         </View>
 
         <Text style={styles.sectionTitle}>Company</Text>
-        <View style={styles.infoBox}>
+        <View style={commonStyles.infoBox}>
           <Text style={styles.info}>
             <Text style={styles.label}>Name:</Text>{' '}
             {state.data.user.company.name}
@@ -75,7 +75,7 @@ function PostDetailScreen() {
         </View>
 
         <Text style={styles.sectionTitle}>Address</Text>
-        <View style={styles.infoBox}>
+        <View style={commonStyles.infoBox}>
           <Text style={styles.info}>
             {state.data.user.address.street}, {state.data.user.address.suite}
           </Text>
@@ -120,14 +120,6 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 12,
     color: '#444',
-  },
-  infoBox: {
-    backgroundColor: '#fafafa',
-    padding: 12,
-    borderRadius: 10,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: '#ddd',
   },
   info: {
     fontSize: 15,
