@@ -1,11 +1,12 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import commonStyles from '../../common/styles';
 import { usePostDetails } from '../../hooks/usePostDetails';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../App';
 import ErrorElement from '../../components/ErrorElement';
 import LoadingElement from '../../components/LoadingElement';
 import ThemeableStatusBar from '../../components/ThemeableStatusBar';
+import { useEffect } from 'react';
 
 type PostScreenRouteProp = RouteProp<RootStackParamList, 'Post'>;
 
@@ -13,6 +14,15 @@ function PostDetailScreen() {
   const route = useRoute<PostScreenRouteProp>();
   const { postId } = route.params;
   const { state, retry } = usePostDetails(postId);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (state.status === 'success') {
+      navigation.setOptions({ title: `${state.data.user.username}'s Post` });
+    } else {
+      navigation.setOptions({ title: `Loading Post` });
+    }
+  }, [state, navigation]);
 
   if (state.status === 'init' || state.status === 'loading') {
     return <LoadingElement />;
