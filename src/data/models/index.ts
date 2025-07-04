@@ -53,11 +53,11 @@ export function isValidCompany(obj: any): obj is Geo {
 }
 
 export type Geo = {
-  lat: number;
-  lng: number;
+  lat: string;
+  lng: string;
 };
 export function isValidGeo(obj: any): obj is Geo {
-  return isObject(obj) && isNumber(obj.lat) && isNumber(obj.lng);
+  return isObject(obj) && isString(obj.lat) && isString(obj.lng);
 }
 
 export type Address = {
@@ -75,7 +75,7 @@ export function isValidAddress(obj: any): obj is Address {
     isString(obj.suite) &&
     isString(obj.city) &&
     isString(obj.zipcode) &&
-    isValidGeo(obj.address)
+    isValidGeo(obj.geo)
   );
 }
 
