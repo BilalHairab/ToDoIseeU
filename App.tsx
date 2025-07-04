@@ -4,9 +4,16 @@
  *
  * @format
  */
-
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useColorScheme } from 'react-native';
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from '@react-navigation/native';
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationProp,
+} from '@react-navigation/native-stack';
 import React from 'react';
 import PostsMainScreen from './src/ui/screens/posts/PostsMainScreen';
 import PostDetailScreen from './src/ui/screens/post_detail/PostDetailScreen';
@@ -18,12 +25,16 @@ export type RootStackParamList = {
   Posts: undefined;
   Post: { postId: number };
 };
-export type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Posts'>;
+export type HomeScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Posts'
+>;
 
 function App() {
+  const scheme = useColorScheme();
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
+      <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack.Navigator
           screenOptions={{
             headerShown: true,

@@ -1,4 +1,10 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from 'react-native';
 import commonStyles from '../../common/styles';
 import { usePostDetails } from '../../hooks/usePostDetails';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
@@ -8,6 +14,7 @@ import LoadingElement from '../../components/LoadingElement';
 import ThemeableStatusBar from '../../components/ThemeableStatusBar';
 import { useEffect } from 'react';
 import { WebView } from 'react-native-webview';
+import { getColors } from '../../theme/colors';
 
 type PostScreenRouteProp = RouteProp<RootStackParamList, 'Post'>;
 
@@ -16,6 +23,8 @@ function PostDetailScreen() {
   const { postId } = route.params;
   const { state, retry } = usePostDetails(postId);
   const navigation = useNavigation();
+  const scheme = useColorScheme();
+  const colors = getColors(scheme);
 
   useEffect(() => {
     if (state.status === 'success') {
@@ -54,53 +63,90 @@ function PostDetailScreen() {
 `;
 
   return (
-    <View style={commonStyles.mainScreenContainer}>
+    <View
+      style={[
+        commonStyles.mainScreenContainer,
+        { backgroundColor: colors.surface },
+      ]}
+    >
       <ThemeableStatusBar />
       <ScrollView contentContainerStyle={styles.container}>
-        {/* Post Card */}
-        <View style={styles.card}>
-          <Text style={styles.title}>{state.data.post.title}</Text>
-          <Text style={styles.body}>{state.data.post.body}</Text>
+        <View
+          style={[
+            styles.card,
+            {
+              backgroundColor: colors.background,
+              borderColor: colors.borderAlt,
+            },
+          ]}
+        >
+          <Text style={[styles.title, { color: colors.textPrimary }]}>
+            {state.data.post.title}
+          </Text>
+          <Text style={[styles.body, { color: colors.textSecondary }]}>
+            {state.data.post.body}
+          </Text>
         </View>
 
-        <Text style={styles.sectionTitle}>Author Info</Text>
-        <View style={commonStyles.infoBox}>
-          <Text style={styles.info}>
+        <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>
+          Author Info
+        </Text>
+        <View
+          style={[
+            commonStyles.infoBox,
+            { backgroundColor: colors.surfaceAlt, borderColor: colors.border },
+          ]}
+        >
+          <Text style={[styles.info, { color: colors.textPrimary }]}>
             <Text style={styles.label}>Name:</Text> {state.data.user.name}
           </Text>
-          <Text style={styles.info}>
-            <Text style={styles.label}>Username:</Text>{' '}
+          <Text style={[styles.info, { color: colors.textPrimary }]}>
+            <Text style={styles.label}>Username:</Text>
             {state.data.user.username}
           </Text>
-          <Text style={styles.info}>
+          <Text style={[styles.info, { color: colors.textPrimary }]}>
             <Text style={styles.label}>Email:</Text> {state.data.user.email}
           </Text>
-          <Text style={styles.info}>
+          <Text style={[styles.info, { color: colors.textPrimary }]}>
             <Text style={styles.label}>Phone:</Text> {state.data.user.phone}
           </Text>
-          <Text style={styles.info}>
+          <Text style={[styles.info, { color: colors.textPrimary }]}>
             <Text style={styles.label}>Website:</Text> {state.data.user.website}
           </Text>
         </View>
 
-        <Text style={styles.sectionTitle}>Company</Text>
-        <View style={commonStyles.infoBox}>
-          <Text style={styles.info}>
-            <Text style={styles.label}>Name:</Text>{' '}
+        <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>
+          Company
+        </Text>
+        <View
+          style={[
+            commonStyles.infoBox,
+            { backgroundColor: colors.surfaceAlt, borderColor: colors.border },
+          ]}
+        >
+          <Text style={[styles.info, { color: colors.textPrimary }]}>
+            <Text style={styles.label}>Name:</Text>
             {state.data.user.company.name}
           </Text>
-          <Text style={styles.info}>
-            <Text style={styles.label}>Catchphrase:</Text>{' '}
+          <Text style={[styles.info, { color: colors.textPrimary }]}>
+            <Text style={styles.label}>Catchphrase:</Text>
             {state.data.user.company.catchPhrase}
           </Text>
         </View>
 
-        <Text style={styles.sectionTitle}>Address</Text>
-        <View style={commonStyles.infoBox}>
-          <Text style={styles.info}>
+        <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>
+          Address
+        </Text>
+        <View
+          style={[
+            commonStyles.infoBox,
+            { backgroundColor: colors.surfaceAlt, borderColor: colors.border },
+          ]}
+        >
+          <Text style={[styles.info, { color: colors.textPrimary }]}>
             {state.data.user.address.street}, {state.data.user.address.suite}
           </Text>
-          <Text style={styles.info}>
+          <Text style={[styles.info, { color: colors.textPrimary }]}>
             {state.data.user.address.city} {state.data.user.address.zipcode}
           </Text>
           <View
@@ -128,34 +174,28 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   card: {
-    backgroundColor: '#f9f9f9',
     padding: 16,
     borderRadius: 12,
     marginBottom: 24,
     borderWidth: 1,
-    borderColor: '#eee',
   },
   title: {
     fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 8,
-    color: '#333',
   },
   body: {
     fontSize: 16,
-    color: '#555',
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: '700',
     marginBottom: 8,
     marginTop: 12,
-    color: '#444',
   },
   info: {
     fontSize: 15,
     marginBottom: 6,
-    color: '#333',
   },
   label: {
     fontWeight: '600',
