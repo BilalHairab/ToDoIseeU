@@ -7,7 +7,6 @@ export function usePosts() {
   const [state, setState] = useState<UIState<Post[]>>({ status: 'init' });
 
   const fetchPosts = useCallback(() => {
-    console.log(`fetchPosts`)
     setState({ status: 'loading' });
     getPostsFromAPI()
       .then(ps => {

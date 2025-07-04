@@ -14,7 +14,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Stack = createNativeStackNavigator();
 
-type RootStackParamList = {
+export type RootStackParamList = {
   Posts: undefined;
   Post: { postId: number };
 };
