@@ -6,8 +6,8 @@ export default function LoadingElement() {
   return (
     <View style={commonStyles.centerElement}>
       <ActivityIndicator size="large" />
-      <Text style={commonStyles.errorElementTextStyle}>
-        {'Loading Posts...'}
+      <Text>
+        {'Loading...'}
       </Text>
     </View>
   );
