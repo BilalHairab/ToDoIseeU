@@ -7,6 +7,7 @@ import ErrorElement from '../../components/ErrorElement';
 import LoadingElement from '../../components/LoadingElement';
 import ThemeableStatusBar from '../../components/ThemeableStatusBar';
 import { useEffect } from 'react';
+import { WebView } from 'react-native-webview';
 
 type PostScreenRouteProp = RouteProp<RootStackParamList, 'Post'>;
 
@@ -31,6 +32,26 @@ function PostDetailScreen() {
   if (state.status === 'error') {
     return <ErrorElement error={state.error} onRetry={retry} />;
   }
+  const latitude = state.data.user.address.geo.lat;
+  const longitude = state.data.user.address.geo.lng;
+  const mapHtml = `
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      <style>body, html { margin: 0; padding: 0; height: 100%; }</style>
+    </head>
+    <body>
+      <iframe
+        width="100%"
+        height="100%"
+        frameborder="0" style="border:0"
+        src="https://maps.google.com/maps?q=${latitude},${longitude}&z=15&output=embed"
+        allowfullscreen>
+      </iframe>
+    </body>
+  </html>
+`;
 
   return (
     <View style={commonStyles.mainScreenContainer}>
@@ -82,10 +103,20 @@ function PostDetailScreen() {
           <Text style={styles.info}>
             {state.data.user.address.city} {state.data.user.address.zipcode}
           </Text>
-          <Text style={styles.info}>
-            Lat: {state.data.user.address.geo.lat}, Lng:{' '}
-            {state.data.user.address.geo.lng}
-          </Text>
+          <View
+            style={{
+              height: 200,
+              borderRadius: 10,
+              overflow: 'hidden',
+              marginTop: 10,
+            }}
+          >
+            <WebView
+              originWhitelist={['*']}
+              source={{ html: mapHtml }}
+              style={{ flex: 1 }}
+            />
+          </View>
         </View>
       </ScrollView>
     </View>
