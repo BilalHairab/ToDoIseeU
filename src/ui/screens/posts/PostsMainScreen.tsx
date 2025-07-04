@@ -1,17 +1,15 @@
 import {
-  StatusBar,
-  useColorScheme,
-  View,
+  View
 } from 'react-native';
 import commonStyles from '../../common/styles';
 import PostsBody from './PostsBody';
+import ThemeableStatusBar from '../../components/ThemeableStatusBar';
 
 function PostsMainScreen() {
-  const isDarkMode = useColorScheme() === 'dark';
 
   return (
     <View style={commonStyles.mainScreenContainer}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <ThemeableStatusBar />
       <PostsBody />
     </View>
   );
